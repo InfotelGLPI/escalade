@@ -342,15 +342,19 @@ class PluginEscaladeTicket {
       $condition = "tickets_id = $tickets_id AND groups_id = $groups_id AND type = 2";
       if (! $group_ticket->find($condition)) {
 
+         //delete all groups
+         $group_ticket->deleteByCriteria(['tickets_id' => $tickets_id,
+                                          'type'       => 2]);
+
          // add group to ticket
          $ticket = new Ticket();
-         $ticket->update([
-            'id' => $tickets_id,
-            '_itil_assign' => [
-               '_type'     => "group",
-               'groups_id' => $groups_id
-            ]
-         ]);
+         $ticket->getFromDB($tickets_id);
+         $input = $ticket->fields;
+         $input['_itil_assign'] = [
+            '_type'     => "group",
+            'groups_id' => $groups_id
+         ];
+         $ticket->update($input);
       }
 
       if (! $full_history) {

@@ -121,9 +121,9 @@ class PluginEscaladeGroup_Group extends CommonDBRelation {
       // To do an escalation, the user must be in a group currently assigned to the ticket
       // or no group is assigned to the ticket
       // TODO : matching with "view all tickets (yes/no) option in profile user"
-      if (!empty($ticket_groups) && count(array_intersect($ticket_groups, $user_groups)) == 0) {
-         return array();
-      }
+      //if (!empty($ticket_groups) && count(array_intersect($ticket_groups, $user_groups)) == 0) {
+      //   return array();
+      //}
 
       //get all group which we can climb
       if (count($groups) > 0) {

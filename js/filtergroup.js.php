@@ -18,7 +18,7 @@ var tickets_id = getUrlParameter('id');
 function redefineDropdown(id, url, tickets_id, itemtype) {
 
 $('#' + id).select2({
-   width: '80%',
+   dropdownAutoWidth : true,
    minimumInputLength: 0,
    quietMillis: 100,
    minimumResultsForSearch: 50,
@@ -37,7 +37,7 @@ $('#' + id).select2({
             condition: "",
             used: [],
             toadd: [],
-            entity_restrict: 0,
+            //entity_restrict: 0,
             limit: "50",
             permit_select_parent: 0,
             specific_tags: [],
@@ -71,13 +71,13 @@ $('#' + id).select2({
                      condition: "8791f22d6279ae77180198b33b4cc0f0e3b49513",
                      used: [],
                      toadd: [],
-                     entity_restrict: 0,
+                     //entity_restrict: 0,
                      limit: "50",
                      permit_select_parent: false,
                      specific_tags: [],
-                     _one_id: id},
-                     dataType: 'json',
-                     type: 'POST'
+                     _one_id: id
+                     },
+               dataType: 'json',
                }).done(function(data) { callback(data); });
             }
          }
@@ -106,16 +106,12 @@ $(document).ready(function() {
       // -----------------------
       // ---- Create Ticket ----
       // -----------------------
-
+//WARNING DISABLE DEBUG GLPI
       $('#tabspanel + div.ui-tabs').on("tabsload", function( event, ui ) {
          setTimeout(function() {
             // Group
-            var assign_select_dom_id = $("*[name='_groups_id_assign']")[0].id;
+            var assign_select_dom_id = $("input[name='_groups_id_assign']")[0].id;
             redefineDropdown(assign_select_dom_id, urlGroup, 0, 'Group');
-
-            // User
-            /*var assign_select_dom_id = $("*[name='_users_id_assign']")[0].id;
-            redefineDropdown(assign_select_dom_id, urlUser, 0, 'User');*/
          }, 300);
       });
 
@@ -135,18 +131,6 @@ $(document).ready(function() {
                redefineDropdown(assign_select_dom_id, urlGroup, tickets_id, 'Group');
             });
          }
-
-         // User
-         /*if (settings.url.indexOf("dropdownItilActors.php") > 0
-            && settings.data.indexOf("user") > 0
-               && settings.data.indexOf("assign") > 0
-            ) {
-            checkDOMChange("input[name='_itil_assign[users_id]'", function() {
-               var assign_select_dom_id = $("*[name='_itil_assign[users_id]']")[0].id;
-               redefineDropdown(assign_select_dom_id, urlUser, tickets_id, 'User');
-            });
-
-         }*/
       });
 
    }

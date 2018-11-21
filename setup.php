@@ -92,11 +92,15 @@ function plugin_init_escalade() {
                if ($escalade_config['cloneandlink_ticket']) {
                   $PLUGIN_HOOKS['add_javascript']['escalade'][] = 'js/cloneandlink_ticket.js.php';
                }
+            }
+            
+            // on ticket page (in edition)
+            if (strpos($_SERVER['REQUEST_URI'], "ticket.form.php") !== false) {
 
                //filter group feature
-               if ($escalade_config['use_filter_assign_group']) {
+               //if ($escalade_config['use_filter_assign_group']) {
                   $PLUGIN_HOOKS['add_javascript']['escalade'][] = 'js/filtergroup.js.php';
-               }
+               //}
             }
 
             Plugin::registerClass('PluginEscaladeGroup_Group', ['addtabon' => 'Group']);
