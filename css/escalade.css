@@ -21,7 +21,7 @@ a.escalade_history, .escalade_history a {
    position: relative;
 }
 .escalade a.up_a:before {
-   font-family: FontAwesome;
+   font-family: "Font Awesome 5 Free";
    position: absolute;
    content: '\f062';
    color:#D1D3D1;

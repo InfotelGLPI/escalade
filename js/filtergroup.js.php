@@ -17,8 +17,12 @@ var tickets_id = getUrlParameter('id');
 
 function redefineDropdown(id, url, tickets_id, itemtype) {
 
+if (typeof templateResult === "undefined" && typeof formatResult !== "undefined") {
+   var templateResult = formatResult;
+}
 $('#' + id).select2({
-   dropdownAutoWidth : true,
+//   dropdownAutoWidth : true,
+   width: '70%',
    minimumInputLength: 0,
    quietMillis: 100,
    minimumResultsForSearch: 50,
@@ -41,7 +45,7 @@ $('#' + id).select2({
             limit: "50",
             permit_select_parent: 0,
             specific_tags: [],
-            searchText: term,
+            //searchText: term,
             page_limit: 100, // page size
             page: page, // page number
                };
@@ -75,10 +79,9 @@ $('#' + id).select2({
                      limit: "50",
                      permit_select_parent: false,
                      specific_tags: [],
-                     _one_id: id
-                     },
-               dataType: 'json',
-               }).done(function(data) { callback(data); });
+                     _one_id: id},
+                     dataType: 'json'
+                     }).done(function(data) { callback(data); });
             }
          }
 
@@ -106,11 +109,11 @@ $(document).ready(function() {
       // -----------------------
       // ---- Create Ticket ----
       // -----------------------
-//WARNING DISABLE DEBUG GLPI
+      //WARNING DISABLE DEBUG GLPI
       $('#tabspanel + div.ui-tabs').on("tabsload", function( event, ui ) {
          setTimeout(function() {
             // Group
-            var assign_select_dom_id = $("input[name='_groups_id_assign']")[0].id;
+            var assign_select_dom_id = $("*[name='_groups_id_assign']")[0].id;
             redefineDropdown(assign_select_dom_id, urlGroup, 0, 'Group');
          }, 300);
       });
@@ -124,15 +127,20 @@ $(document).ready(function() {
          // Group
          if (settings.url.indexOf("dropdownItilActors.php") > 0
             && settings.data.indexOf("group") > 0
-               && settings.data.indexOf("assign") > 0
-            ) {
-            checkDOMChange("input[name='_itil_assign[groups_id]'", function() {
-               var assign_select_dom_id = $("input[name='_itil_assign[groups_id]']")[0].id;
-               redefineDropdown(assign_select_dom_id, urlGroup, tickets_id, 'Group');
+            && settings.data.indexOf("assign") > 0) {
+            checkDOMChange("select[name='_itil_assign[_type]'", function() {
+               var childs = $("select[name='_itil_assign[_type]'")[0].childNodes;
+               childs.forEach(function(child) {
+                  if(child.selected == true && child.value == 'group'){
+                      setTimeout(function() {
+                         var assign_select_dom_id = $("select[name='_itil_assign[groups_id]']")[0].id;
+                         redefineDropdown(assign_select_dom_id, urlGroup, tickets_id, 'Group');
+                      }, 300);
+                  }
+               });
             });
          }
       });
-
    }
 });
 JAVASCRIPT;
