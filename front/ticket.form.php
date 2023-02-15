@@ -32,7 +32,7 @@ use Glpi\Event;
 include("../../../inc/includes.php");
 Session::checkLoginUser();
 
-$ticket = new Group_Ticket();
+$groupTicket = new Group_Ticket();
 $ticketUser = new Ticket_User();
 
 if (empty($_GET["id"])) {
@@ -56,7 +56,7 @@ if (isset($_POST["add"])) {
             $ticketUser->add($inputTicketUser);
 
         }
-        $ticket->add($input);
+        $groupTicket->add($input);
     }
 }
 
