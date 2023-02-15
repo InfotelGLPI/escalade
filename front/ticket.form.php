@@ -1,4 +1,5 @@
-/*!
+<?php
+/**
  * -------------------------------------------------------------------------
  * Escalade plugin for GLPI
  * -------------------------------------------------------------------------
@@ -26,54 +27,37 @@
  * -------------------------------------------------------------------------
  */
 
-.escalade .up {
-    margin-left: 6px;
+use Glpi\Event;
+
+include("../../../inc/includes.php");
+Session::checkLoginUser();
+
+$ticket = new Group_Ticket();
+$ticketUser = new Ticket_User();
+
+if (empty($_GET["id"])) {
+    $_GET["id"] = "";
+}
+$tickets_id = $_POST["tickets_id"];
+
+if (isset($_POST["add"])) {
+    $checkbox = $_POST["escalation"];
+    if (!empty($_POST["groups_id"]) && !empty($_POST["comment"]) && !empty($tickets_id)) {
+
+        $input['tickets_id'] = $tickets_id;
+        $input['groups_id'] = $_POST["groups_id"];
+        $input['escalade_comment'] = $_POST["comment"];
+        $input['type'] = CommonITILActor::ASSIGN;
+        if ($_POST['is_observer_checkbox']) {
+
+            $inputTicketUser['type'] = CommonITILActor::OBSERVER;
+            $inputTicketUser['tickets_id'] = $tickets_id;
+            $inputTicketUser['users_id'] = Session::getLoginUserID();
+            $ticketUser->add($inputTicketUser);
+
+        }
+        $ticket->add($input);
+    }
 }
 
-.escalade .climb {
-    margin-left: 2px;
-}
-
-.escalade_history {
-    margin-top: 7px;
-    display: flex;
-    margin-left: 5px;
-}
-
-a.escalade_history {
-    color: grey !important;
-}
-
-.escalade_config .tab_cadre_fixe > tbody > tr:nth-child(odd) {
-    background-color: #F5F5F5;
-}
-
-.escalade_config .tab_cadre_fixe > tbody > tr > td:nth-child(1),
-.escalade_config .tab_cadre_fixe > tbody > tr > td:nth-child(3) {
-    width: 30%;
-}
-
-.timeline-item.PluginEscaladeTicket .timeline-content, .timeline-item.PluginEscaladeTicket .timeline-content {
-    background-color: #F8CBCBFF;
-    color: #000000;
-    border-color: #ccc;
-    /*background-image: url(../pics/timeline/followup.png);*/
-    background-repeat: no-repeat;
-}
-
-
-.timeline-item.PluginEscaladeTicket .timeline-content {
-    background-color: #F8CBCBFF;
-    color: #000000FF;
-    border-color: #E8DCCA;
-    border-left: 1em transparent solid;
-}
-
-.itil-footer .action-escalation {
-    background-color: #F8CBCBFF;
-}
-
-.escalation {
-    background-color: #F8CBCBFF !important;
-    color: #000000FF;
-}
+Html::back();
