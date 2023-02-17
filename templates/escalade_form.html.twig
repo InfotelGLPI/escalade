@@ -35,6 +35,7 @@
 
 {% set action = params['action'] ?? [] %}
 {% set subitem = subitem ?? [] %}
+{% set used = used ?? 0 %}
 
 {% block timeline_card %}
 
@@ -48,7 +49,7 @@
             <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}"/>
 
             <div class=" escalation card-header">
-                <h3 class="card-title"> Ajouter une escalade</h3>
+                <h3 class="card-title"> {{ __('Climb ticket','escalade') }}</h3>
             </div>
             <div class="escalation card-body">
                 {{ fields.textareaField(
@@ -70,19 +71,18 @@
                     {{ fields.dropdownField(
                         'Group',
                         'groups_id',
-                        subitem.fields['groups_id'],
+                        '',
                         __('Group'),
                         {
                             label_class :'col-auto',
                             input_class :'col-12',
-                            field_class : 'col-12 mr-0 '
-                        },
-                        {
+                            field_class : 'col-12 mr-0 ',
                             'full_width': true,
                             'required' : true,
                             'icon_label': true,
                             'entity': subitem.fields['entities_id'],
                             'condition': {'is_assign': 1},
+                            'used': used,
                             'rand': rand,
                         }
                     ) }}
@@ -90,7 +90,8 @@
                 {{ fields.checkboxField(
                     'is_observer_checkbox',
                     1,
-                    __('Assign yourself as an observer'),
+                    __('Assign yourself as an observer', 'escalade'),
+
                     {
                         field_class :'col-12',
                         label_class :'col-auto',

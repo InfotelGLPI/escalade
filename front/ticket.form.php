@@ -32,7 +32,7 @@ use Glpi\Event;
 include("../../../inc/includes.php");
 Session::checkLoginUser();
 
-$ticket = new Group_Ticket();
+$groupTicket = new Group_Ticket();
 $ticketUser = new Ticket_User();
 
 if (empty($_GET["id"])) {
@@ -40,8 +40,7 @@ if (empty($_GET["id"])) {
 }
 $tickets_id = $_POST["tickets_id"];
 
-if (isset($_POST["add"])) {
-    $checkbox = $_POST["escalation"];
+if (isset($_POST["update"])) {
     if (!empty($_POST["groups_id"]) && !empty($_POST["comment"]) && !empty($tickets_id)) {
 
         $input['tickets_id'] = $tickets_id;
@@ -56,8 +55,32 @@ if (isset($_POST["add"])) {
             $ticketUser->add($inputTicketUser);
 
         }
-        $ticket->add($input);
+        $groupTicket->add($input);
+        $config = new PluginEscaladeConfig();
+        if (!$config->fields['remove_group']) {
+            $group = new Group();
+            $group->getFromDB($input['groups_id']);
+            $task = new TicketTask();
+            $content = '';
+            if ($config->fields['task_history']) {
+                $content .= __("Add group ", "escalade") . " " . $group->getName() . "<br>";
+            }
+            if ($input['escalade_comment']) {
+                $content .= "<strong>" . __('User comment : ', 'escalade') . "</strong><br>";
+                $content .= \Glpi\RichText\RichText::getTextFromHtml($input['escalade_comment']);
+            }
+            $task->add([
+                'tickets_id' => $tickets_id,
+                'is_private' => true,
+                'state' => Planning::INFO,
+                'content' => Toolbox::addslashes_deep($content)
+            ]);
+        }
+
+
     }
+
+
 }
 
 Html::back();

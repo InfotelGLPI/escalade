@@ -313,8 +313,8 @@ class PluginEscaladeTicket
 
             $task = new TicketTask();
             $content = __("escalated to the group", "escalade") . " " . $group->getName();
-            if(isset($item) && isset($item->input['escalade_comment'])) {
-                $content .= "<br><strong>".__('User comment : ','escalade')."</strong><br>";
+            if (isset($item) && isset($item->input['escalade_comment'])) {
+                $content .= "<br><strong>" . __('User comment : ', 'escalade') . "</strong><br>";
                 $content .= \Glpi\RichText\RichText::getTextFromHtml($item->input['escalade_comment']);
             }
 
@@ -862,12 +862,11 @@ class PluginEscaladeTicket
         $item = $options['item'];
         $itemtypes = [];
         $ticket_task = new PluginEscaladeTicket();
-
         $itemtypes['escalation'] = [
             'type' => 'PluginEscaladeTicket',
             'class' => 'action-escalade',
             'icon' => 'fas fa-comments',
-            'label' => _n('Add escalation', 'Add escalations', 1, 'escalade'),
+            'label' => __('Climb', 'escalade'),
             'item' => new self()
         ];
 
@@ -877,12 +876,30 @@ class PluginEscaladeTicket
     public function showForm($ID, $options = [])
     {
         global $CFG_GLPI;
+        Toolbox::logInFile('debug', print_r($options, true), true);
+        $groupsAssign = new Group_Ticket();
+//        $groupsAssign->getActors($ID);
+//        foreach ($groupsAssign as $grp) {
+//            if ($grp->fields['type'] != CommonITILActor::ASSIGN) {
+//                $used[] = $grp->fields['groups_id'];
+//            }
+//        }
+        $groups = $groupsAssign->find([
+            'tickets_id' => $options["parent"]->getID(),
+            'type' => CommonITILActor::ASSIGN,
+        ]);
+        $used = array();
+        foreach ($groups as $grp) {
+
+           $used[$grp['groups_id']] = $grp['groups_id'];
+
+        }
         $options['action'] = $CFG_GLPI["root_doc"] . PLUGIN_ESCALADE_DIR_NOFULL . '/front/ticket.form.php';
         TemplateRenderer::getInstance()->display('@escalade/escalade_form.html.twig', [
             'params' => $options,
-            'subitem' => $options["parent"]
+            'subitem' => $options["parent"],
+            'used' => $used
         ]);
-
     }
 
 }
