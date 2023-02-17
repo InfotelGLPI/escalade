@@ -56,6 +56,7 @@ if (isset($_POST["update"])) {
 
         }
         $groupTicket->add($input);
+<<<<<<< HEAD
         $config = new PluginEscaladeConfig();
         if (!$config->fields['remove_group']) {
             $group = new Group();
@@ -78,6 +79,8 @@ if (isset($_POST["update"])) {
         }
 
 
+=======
+>>>>>>> 5cd0815b29d78104b0736112f8dd79a5df0f27d1
     }
 
 
