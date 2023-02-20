@@ -56,20 +56,18 @@ if (isset($_POST["update"])) {
 
         }
         $groupTicket->add($input);
-<<<<<<< HEAD
+
         $config = new PluginEscaladeConfig();
         if (!$config->fields['remove_group']) {
-            $group = new Group();
-            $group->getFromDB($input['groups_id']);
             $task = new TicketTask();
             $content = '';
             if ($config->fields['task_history']) {
-                $content .= __("Add group ", "escalade") . " " . $group->getName() . "<br>";
+                $group = new Group();
+                $group->getFromDB($input['groups_id']);
+                $content .= __("escalated to the group", "escalade") . " " . $group->getName() . "<br>";
             }
-            if ($input['escalade_comment']) {
-                $content .= "<strong>" . __('User comment : ', 'escalade') . "</strong><br>";
-                $content .= \Glpi\RichText\RichText::getTextFromHtml($input['escalade_comment']);
-            }
+            $content .= "<strong>" . __('User comment : ', 'escalade') . "</strong><br>";
+            $content .= \Glpi\RichText\RichText::getTextFromHtml($input['escalade_comment']);
             $task->add([
                 'tickets_id' => $tickets_id,
                 'is_private' => true,
@@ -77,10 +75,6 @@ if (isset($_POST["update"])) {
                 'content' => Toolbox::addslashes_deep($content)
             ]);
         }
-
-
-=======
->>>>>>> 5cd0815b29d78104b0736112f8dd79a5df0f27d1
     }
 
 

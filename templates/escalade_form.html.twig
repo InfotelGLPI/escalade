@@ -55,7 +55,7 @@
                 {{ fields.textareaField(
                     'comment',
                     subitem.fields['comment'],
-                    __('Comment'),
+                    __('Comment', 'escalade'),
                     {
                         'full_width': true,
                         'required' : true,
@@ -67,12 +67,13 @@
                         'rand' : rand,
                     }
                 ) }}
+                {% set label_grp = call('Group::getTypeName',[0]) %}
                 <div class="form-field col-12 mt-2">
                     {{ fields.dropdownField(
                         'Group',
                         'groups_id',
                         '',
-                        __('Group'),
+                        label_grp,
                         {
                             label_class :'col-auto',
                             input_class :'col-12',
@@ -91,10 +92,6 @@
                     'is_observer_checkbox',
                     1,
                     __('Assign yourself as an observer', 'escalade'),
-<<<<<<< HEAD
-
-=======
->>>>>>> 5cd0815b29d78104b0736112f8dd79a5df0f27d1
                     {
                         field_class :'col-12',
                         label_class :'col-auto',
