@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-20 16:48+0100\n"
+"POT-Creation-Date: 2023-02-27 16:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,10 @@ msgctxt "button"
 msgid "Add"
 msgstr ""
 
+#: templates/escalade_form.html.twig:94
+msgid "Assign me as an observer"
+msgstr ""
+
 #: inc/config.class.php:142
 msgid "Assign the technical group on ticket category change"
 msgstr ""
@@ -32,10 +36,6 @@ msgstr ""
 
 #: inc/config.class.php:118
 msgid "Assign ticket to initial group on solve ticket"
-msgstr ""
-
-#: templates/escalade_form.html.twig:94
-msgid "Assign yourself as an observer"
 msgstr ""
 
 #: inc/user.class.php:125
@@ -201,12 +201,8 @@ msgstr ""
 msgid "Use the technician's group"
 msgstr ""
 
-#: inc/ticket.class.php:331
+#: front/ticket.form.php:69 inc/ticket.class.php:316 inc/ticket.class.php:331
 msgid "User comment"
-msgstr ""
-
-#: front/ticket.form.php:69 inc/ticket.class.php:316
-msgid "User comment : "
 msgstr ""
 
 #: inc/history.class.php:148

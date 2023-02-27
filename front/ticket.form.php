@@ -66,7 +66,7 @@ if (isset($_POST["update"])) {
                 $group->getFromDB($input['groups_id']);
                 $content .= __("escalated to the group", "escalade") . " " . $group->getName() . "<br>";
             }
-            $content .= "<strong>" . __('User comment : ', 'escalade') . "</strong><br>";
+            $content .= "<strong>" . __('User comment', 'escalade') . "</strong><br>";
             $content .= \Glpi\RichText\RichText::getTextFromHtml($input['escalade_comment']);
             $task->add([
                 'tickets_id' => $tickets_id,
