@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GLPI Plugin - Escalade\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:50+0100\n"
-"PO-Revision-Date: 2023-02-27 16:54+0100\n"
+"POT-Creation-Date: 2023-03-01 11:44+0100\n"
+"PO-Revision-Date: 2023-03-01 11:48+0100\n"
 "Last-Translator: Cédric Anne, 2018\n"
 "Language-Team: French (France) (http://www.transifex.com/teclib/glpi-project-"
 "plugin-escalade/language/fr_FR/)\n"
@@ -211,7 +211,7 @@ msgstr "Tickets à suivre (escaladés)"
 msgid "Use the technician's group"
 msgstr "Prendre le groupe du technicien"
 
-#: front/ticket.form.php:69 inc/ticket.class.php:316 inc/ticket.class.php:331
+#: front/ticket.form.php:67 inc/ticket.class.php:316 inc/ticket.class.php:331
 msgid "User comment"
 msgstr "Commentaire de l'utilisateur"
 
@@ -227,9 +227,14 @@ msgstr "une date de création"
 msgid "a time of modification"
 msgstr "une date de modification"
 
-#: front/ticket.form.php:67 inc/ticket.class.php:314
+#: inc/ticket.class.php:314
 msgid "escalated to the group"
 msgstr "escalade vers le groupe"
+
+#: front/ticket.form.php:65
+#, php-format
+msgid "escalated to the group %s"
+msgstr "escalade vers le groupe %s"
 
 #: front/popup_histories.php:33
 msgid "full assignation history"

@@ -27,8 +27,6 @@
  * -------------------------------------------------------------------------
  */
 
-use Glpi\Event;
-
 include("../../../inc/includes.php");
 Session::checkLoginUser();
 
@@ -64,7 +62,7 @@ if (isset($_POST["update"])) {
             if ($config->fields['task_history']) {
                 $group = new Group();
                 $group->getFromDB($input['groups_id']);
-                $content .= __("escalated to the group", "escalade") . " " . $group->getName() . "<br>";
+                $content .= sprintf(__("escalated to the group %s", "escalade"), $group->getName()) . "<br>";
             }
             $content .= "<strong>" . __('User comment', 'escalade') . "</strong><br>";
             $content .= \Glpi\RichText\RichText::getTextFromHtml($input['escalade_comment']);

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-27 16:50+0100\n"
+"POT-Creation-Date: 2023-03-01 11:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -201,7 +201,7 @@ msgstr ""
 msgid "Use the technician's group"
 msgstr ""
 
-#: front/ticket.form.php:69 inc/ticket.class.php:316 inc/ticket.class.php:331
+#: front/ticket.form.php:67 inc/ticket.class.php:316 inc/ticket.class.php:331
 msgid "User comment"
 msgstr ""
 
@@ -217,8 +217,13 @@ msgstr ""
 msgid "a time of modification"
 msgstr ""
 
-#: front/ticket.form.php:67 inc/ticket.class.php:314
+#: inc/ticket.class.php:314
 msgid "escalated to the group"
+msgstr ""
+
+#: front/ticket.form.php:65
+#, php-format
+msgid "escalated to the group %s"
 msgstr ""
 
 #: front/popup_histories.php:33
